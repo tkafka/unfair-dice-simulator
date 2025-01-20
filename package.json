@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "pnpm run build",
-    "deploy": "gh-pages -d dist  --remove \"./node-modules\" --remove \"./node-modules/**\" --remove \"node-modules\""
+    "deploy": "gh-pages -d dist  --remove \"./node_modules\" --remove \"./node_modules/**\" --remove \"node_modules\""
   },
   "dependencies": {
     "react": "^18.3.1",
