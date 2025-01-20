@@ -28,7 +28,8 @@ const en: Translations = {
   dice1: "Dice 1",
   dice2: "Dice 2",
   correctGuess: "🎉 Correct! You found the unfair dice!",
-  wrongGuess: "🤔 Hmm... Try to look better at the distribution of rolls",
+  wrongGuess:
+    "🤔 Hmm... Try to look better at the distribution of rolls, or roll a bit more",
   roll1: "Roll 1×",
   roll10: "10×",
   roll100: "100×",
@@ -52,7 +53,7 @@ const cs: Translations = {
   dice1: "Kostka 1",
   dice2: "Kostka 2",
   correctGuess: "🎉 Správně! Našel jsi podvodnou kostku!",
-  wrongGuess: "🤔 Hmm... Zkus se líp podívat na rozložení hodů",
+  wrongGuess: "🤔 Hmm... Zkus se líp podívat na rozložení hodů, nebo házej dál",
   roll1: "Hodit 1×",
   roll10: "10×",
   roll100: "100×",
