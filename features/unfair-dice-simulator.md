@@ -13,7 +13,7 @@ A simulator that allows comparing fair and unfair dice rolls with visualization.
 
 2. Interactive features:
 
-   - Roll dice (1, 10, 100, or 1000 times)
+   - Roll dice (1, 10, 100, 1000, or 10000 times)
    - Generate new random dice with "New Random Dice" button
    - Clear current rolls with "Clear Rolls" button
 
@@ -21,6 +21,8 @@ A simulator that allows comparing fair and unfair dice rolls with visualization.
    - Column chart showing the distribution of rolls for both fair and unfair dice
    - Expected count line for fair dice
    - Standard deviation range (±1σ) for fair dice to show expected variation
+   - Responsive chart that adjusts to screen width
+   - Two-column layout on larger screens with game controls on the left and chart on the right
 
 ## Technical Implementation
 
@@ -29,6 +31,7 @@ A simulator that allows comparing fair and unfair dice rolls with visualization.
 - Implements weighted random number generation for unfair dice
 - Statistical analysis including expected values and standard deviation calculations
 - Visualization of statistical bounds for fair dice distribution
+- Responsive layout using Tailwind CSS
 
 ## Visual Design
 
@@ -37,3 +40,5 @@ A simulator that allows comparing fair and unfair dice rolls with visualization.
 - Interactive buttons with visual feedback
 - Responsive containers with subtle shadows
 - Clear visual hierarchy and spacing
+- Compact header to maximize content space
+- Optimized layout for both mobile and desktop views

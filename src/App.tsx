@@ -4,11 +4,11 @@ import {
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   ReferenceLine,
   ReferenceArea,
+  ResponsiveContainer,
 } from "recharts";
 import { DiceService, RollResult } from "./services/DiceService";
 import { TranslationService } from "./services/TranslationService";
@@ -90,8 +90,11 @@ function App() {
 
   return (
     <div className="bg-gray-100 min-h-screen w-screen">
-      <div className="p-10 max-w-[1000px] mx-auto flex flex-col items-center">
-        <div className="flex justify-end w-full mb-5">
+      <div className="p-10 mx-auto">
+        <div className="flex flex-col items-center md:flex-row md:justify-between w-full mb-6">
+          <h1 className="text-gray-800 text-3xl mb-5 md:mb-0">
+            {translationService.t("title")}
+          </h1>
           <select
             value={language}
             onChange={(e) =>
@@ -104,173 +107,182 @@ function App() {
           </select>
         </div>
 
-        <h1 className="mb-10 text-gray-800 text-4xl text-center">
-          {translationService.t("title")}
-        </h1>
+        <div className="lg:flex lg:gap-8 w-full">
+          <div className="lg:w-1/3 flex flex-col gap-8">
+            <div className="bg-white p-8 rounded-2xl shadow-md w-full text-center">
+              <h2 className="text-gray-700 mt-0 mb-6 text-3xl">
+                {translationService.t("whichDiceUnfair")}
+              </h2>
+              <div className="flex items-center justify-center gap-4">
+                <button
+                  onClick={() => {
+                    setSelectedDice(1);
+                    const isCorrect = diceService.isFirstUnfair();
+                    setGuessResult(
+                      isCorrect
+                        ? translationService.t("correctGuess")
+                        : translationService.t("wrongGuess")
+                    );
+                  }}
+                  className={`px-6 py-2.5 text-lg font-bold border-2 border-[#8884d8] transition-all duration-300 ${
+                    selectedDice === 1
+                      ? "bg-[#8884d8] text-white"
+                      : "bg-white text-[#8884d8]"
+                  }`}
+                >
+                  {translationService.t("dice1")}
+                </button>
+                <button
+                  onClick={() => {
+                    setSelectedDice(2);
+                    const isCorrect = !diceService.isFirstUnfair();
+                    setGuessResult(
+                      isCorrect
+                        ? translationService.t("correctGuess")
+                        : translationService.t("wrongGuess")
+                    );
+                  }}
+                  className={`px-6 py-2.5 text-lg font-bold border-2 border-[#82ca9d] transition-all duration-300 ${
+                    selectedDice === 2
+                      ? "bg-[#82ca9d] text-white"
+                      : "bg-white text-[#82ca9d]"
+                  }`}
+                >
+                  {translationService.t("dice2")}
+                </button>
+              </div>
+              {guessResult && (
+                <p
+                  className={`mt-2 text-xl min-w-[300px] ${
+                    guessResult.includes("Správně")
+                      ? "text-green-500"
+                      : "text-orange-500"
+                  }`}
+                >
+                  {guessResult}
+                </p>
+              )}
+            </div>
 
-        <div className="bg-white p-8 rounded-2xl shadow-md mb-8 w-full max-w-[800px] text-center">
-          <h2 className="text-gray-700 mt-0 mb-6 text-3xl">
-            {translationService.t("whichDiceUnfair")}
-          </h2>
-          <div className="flex items-center justify-center gap-4">
-            <button
-              onClick={() => {
-                setSelectedDice(1);
-                const isCorrect = diceService.isFirstUnfair();
-                setGuessResult(
-                  isCorrect
-                    ? translationService.t("correctGuess")
-                    : translationService.t("wrongGuess")
-                );
-              }}
-              className={`px-6 py-2.5 text-lg font-bold border-2 border-[#8884d8] transition-all duration-300 ${
-                selectedDice === 1
-                  ? "bg-[#8884d8] text-white"
-                  : "bg-white text-[#8884d8]"
-              }`}
-            >
-              {translationService.t("dice1")}
-            </button>
-            <button
-              onClick={() => {
-                setSelectedDice(2);
-                const isCorrect = !diceService.isFirstUnfair();
-                setGuessResult(
-                  isCorrect
-                    ? translationService.t("correctGuess")
-                    : translationService.t("wrongGuess")
-                );
-              }}
-              className={`px-6 py-2.5 text-lg font-bold border-2 border-[#82ca9d] transition-all duration-300 ${
-                selectedDice === 2
-                  ? "bg-[#82ca9d] text-white"
-                  : "bg-white text-[#82ca9d]"
-              }`}
-            >
-              {translationService.t("dice2")}
-            </button>
-            {guessResult && (
-              <p
-                className={`m-0 text-xl min-w-[300px] ${
-                  guessResult.includes("Správně")
-                    ? "text-green-500"
-                    : "text-orange-500"
-                }`}
+            <div className="flex flex-wrap gap-2.5 bg-white p-8 rounded-2xl shadow-md w-full">
+              <button
+                onClick={() => handleRoll(1)}
+                className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
               >
-                {guessResult}
+                {translationService.t("roll1")}
+              </button>
+              <button
+                onClick={() => handleRoll(10)}
+                className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
+              >
+                {translationService.t("roll10")}
+              </button>
+              <button
+                onClick={() => handleRoll(100)}
+                className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
+              >
+                {translationService.t("roll100")}
+              </button>
+              <button
+                onClick={() => handleRoll(1000)}
+                className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
+              >
+                {translationService.t("roll1000")}
+              </button>
+              <button
+                onClick={() => handleRoll(10000)}
+                className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
+              >
+                {translationService.t("roll10000")}
+              </button>
+              <button
+                onClick={handleNewDice}
+                className="bg-green-500 hover:bg-green-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
+              >
+                {translationService.t("newDice")}
+              </button>
+              <button
+                onClick={() => setRolls([])}
+                className="bg-red-500 hover:bg-red-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
+              >
+                {translationService.t("clearRolls")}
+              </button>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl shadow-md w-full">
+              <h2 className="text-gray-700 text-2xl mb-6">
+                {translationService.t("statistics")}
+              </h2>
+              <p className="text-gray-600">
+                {translationService.t("totalRolls")}: {rolls.length}
               </p>
-            )}
+              <p className="text-gray-600">
+                {translationService.t(
+                  "dice1Rolls",
+                  rolls.filter((r) => r.isFirst).length.toString()
+                )}
+              </p>
+              <p className="text-gray-600">
+                {translationService.t(
+                  "dice2Rolls",
+                  rolls.filter((r) => !r.isFirst).length.toString()
+                )}
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className="flex gap-2.5 mb-8 bg-white p-8 rounded-2xl shadow-md w-full max-w-[800px]">
-          <button
-            onClick={() => handleRoll(1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
-          >
-            {translationService.t("roll1")}
-          </button>
-          <button
-            onClick={() => handleRoll(10)}
-            className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
-          >
-            {translationService.t("roll10")}
-          </button>
-          <button
-            onClick={() => handleRoll(100)}
-            className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
-          >
-            {translationService.t("roll100")}
-          </button>
-          <button
-            onClick={() => handleRoll(1000)}
-            className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
-          >
-            {translationService.t("roll1000")}
-          </button>
-          <button
-            onClick={() => handleRoll(10000)}
-            className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
-          >
-            {translationService.t("roll10000")}
-          </button>
-          <button
-            onClick={handleNewDice}
-            className="bg-green-500 hover:bg-green-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
-          >
-            {translationService.t("newDice")}
-          </button>
-          <button
-            onClick={() => setRolls([])}
-            className="bg-red-500 hover:bg-red-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
-          >
-            {translationService.t("clearRolls")}
-          </button>
-        </div>
-
-        <div className="bg-white p-8 rounded-2xl shadow-md mb-8 w-full max-w-[800px]">
-          <h2 className="text-gray-700 text-2xl mb-6">
-            {translationService.t("distribution")}
-          </h2>
-          <BarChart width={800} height={400} data={stats}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="face"
-              label={{ value: translationService.t("value"), position: "top" }}
-            />
-            <YAxis
-              label={{
-                value: translationService.t("count"),
-                angle: -90,
-                position: "left",
-              }}
-            />
-            <Tooltip />
-            <Legend />
-            <Bar
-              dataKey="firstCount"
-              name={translationService.t("dice1")}
-              fill="#8884d8"
-            />
-            <Bar
-              dataKey="secondCount"
-              name={translationService.t("dice2")}
-              fill="#82ca9d"
-            />
-            <ReferenceLine
-              y={stats[0]?.expectedFair}
-              stroke="#8884d8"
-              strokeDasharray="3 3"
-            />
-            <ReferenceArea
-              y1={stats[0]?.expectedFairLower}
-              y2={stats[0]?.expectedFairUpper}
-              fill="#8884d8"
-              fillOpacity={0.1}
-              label={translationService.t("expectedDistribution")}
-            />
-          </BarChart>
-        </div>
-
-        <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-[800px]">
-          <h2 className="text-gray-700 text-2xl mb-6">
-            {translationService.t("statistics")}
-          </h2>
-          <p className="text-gray-600">
-            {translationService.t("totalRolls")}: {rolls.length}
-          </p>
-          <p className="text-gray-600">
-            {translationService.t(
-              "dice1Rolls",
-              rolls.filter((r) => r.isFirst).length.toString()
-            )}
-          </p>
-          <p className="text-gray-600">
-            {translationService.t(
-              "dice2Rolls",
-              rolls.filter((r) => !r.isFirst).length.toString()
-            )}
-          </p>
+          <div className="lg:flex-1 bg-white p-8 rounded-2xl shadow-md mt-8 lg:mt-0">
+            <h2 className="text-gray-700 text-2xl mb-6">
+              {translationService.t("distribution")}
+            </h2>
+            <div className="w-full h-[400px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={stats}
+                  margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                >
+                  <XAxis
+                    dataKey="face"
+                    label={{
+                      value: translationService.t("value"),
+                      position: "top",
+                    }}
+                  />
+                  <YAxis
+                    label={{
+                      value: translationService.t("count"),
+                      angle: -90,
+                      position: "left",
+                    }}
+                  />
+                  <Tooltip />
+                  <Legend />
+                  <Bar
+                    dataKey="firstCount"
+                    name={translationService.t("dice1")}
+                    fill="#8884d8"
+                  />
+                  <Bar
+                    dataKey="secondCount"
+                    name={translationService.t("dice2")}
+                    fill="#82ca9d"
+                  />
+                  <ReferenceLine
+                    y={stats[0]?.expectedFair}
+                    stroke="#8884d8"
+                    strokeDasharray="3 3"
+                  />
+                  <ReferenceArea
+                    y1={stats[0]?.expectedFairLower}
+                    y2={stats[0]?.expectedFairUpper}
+                    fill="#8884d8"
+                    fillOpacity={0.1}
+                    label={translationService.t("expectedDistribution")}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         </div>
       </div>
     </div>
