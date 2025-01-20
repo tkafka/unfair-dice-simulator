@@ -100,7 +100,7 @@ function App() {
           textAlign: "center",
         }}
       >
-        Unfair Dice Simulator
+        Kostky nejsou fér!
       </h1>
 
       <div
@@ -122,7 +122,7 @@ function App() {
             fontSize: "1.8em",
           }}
         >
-          Which dice is unfair?
+          Která kostka není fér?
         </h2>
         <div
           style={{
@@ -138,8 +138,8 @@ function App() {
               const isCorrect = diceService.isFirstUnfair();
               setGuessResult(
                 isCorrect
-                  ? "🎉 Correct! You've spotted the unfair dice!"
-                  : "🤔 Not quite... try observing the distributions more carefully"
+                  ? "🎉 Správně! Našel jsi podvodnou kostku!"
+                  : "🤔 Hmm... Zkus se líp podívat na rozložení hodů"
               );
             }}
             style={{
@@ -152,7 +152,7 @@ function App() {
               transition: "all 0.3s ease",
             }}
           >
-            Dice 1
+            Kostka 1
           </button>
           <button
             onClick={() => {
@@ -160,8 +160,8 @@ function App() {
               const isCorrect = !diceService.isFirstUnfair();
               setGuessResult(
                 isCorrect
-                  ? "🎉 Correct! You've spotted the unfair dice!"
-                  : "🤔 Not quite... try observing the distributions more carefully"
+                  ? "🎉 Správně! Našel jsi podvodnou kostku!"
+                  : "🤔 Hmm... Zkus se líp podívat na rozložení hodů"
               );
             }}
             style={{
@@ -174,14 +174,14 @@ function App() {
               transition: "all 0.3s ease",
             }}
           >
-            Dice 2
+            Kostka 2
           </button>
           {guessResult && (
             <p
               style={{
                 margin: 0,
                 fontSize: "1.2em",
-                color: guessResult.includes("Correct") ? "#27ae60" : "#e67e22",
+                color: guessResult.includes("Správně") ? "#27ae60" : "#e67e22",
                 minWidth: "300px",
               }}
             >
@@ -203,19 +203,19 @@ function App() {
           maxWidth: "800px",
         }}
       >
-        <button onClick={() => handleRoll(1)}>Roll Once</button>
-        <button onClick={() => handleRoll(10)}>Roll 10 Times</button>
-        <button onClick={() => handleRoll(100)}>Roll 100 Times</button>
-        <button onClick={() => handleRoll(1000)}>Roll 1 000 Times</button>
-        <button onClick={() => handleRoll(10000)}>Roll 10 000 Times</button>
+        <button onClick={() => handleRoll(1)}>Hodit jednou</button>
+        <button onClick={() => handleRoll(10)}>Hodit 10×</button>
+        <button onClick={() => handleRoll(100)}>Hodit 100×</button>
+        <button onClick={() => handleRoll(1000)}>Hodit 1 000×</button>
+        <button onClick={() => handleRoll(10000)}>Hodit 10 000×</button>
         <button onClick={handleNewDice} style={{ backgroundColor: "#2ecc71" }}>
-          New Random Dice
+          Nové kostky
         </button>
         <button
           onClick={() => setRolls([])}
           style={{ backgroundColor: "#e74c3c" }}
         >
-          Clear Rolls
+          Vymazat hody
         </button>
       </div>
 
@@ -231,18 +231,15 @@ function App() {
           maxWidth: "800px",
         }}
       >
-        <h2>Roll Distribution</h2>
+        <h2>Rozložení hodů</h2>
         <BarChart width={800} height={400} data={stats}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="face"
-            label={{ value: "Face Value", position: "top" }}
-          />
-          <YAxis label={{ value: "Count", angle: -90, position: "left" }} />
+          <XAxis dataKey="face" label={{ value: "Hodnota", position: "top" }} />
+          <YAxis label={{ value: "Počet", angle: -90, position: "left" }} />
           <Tooltip />
           <Legend />
-          <Bar dataKey="firstCount" name="Dice 1" fill="#8884d8" />
-          <Bar dataKey="secondCount" name="Dice 2" fill="#82ca9d" />
+          <Bar dataKey="firstCount" name="Kostka 1" fill="#8884d8" />
+          <Bar dataKey="secondCount" name="Kostka 2" fill="#82ca9d" />
           <ReferenceLine
             y={stats[0]?.expectedFair}
             stroke="#8884d8"
@@ -253,7 +250,7 @@ function App() {
             y2={stats[0]?.expectedFairUpper}
             fill="#8884d8"
             fillOpacity={0.1}
-            label="Expected Fair ±1σ range"
+            label="Očekávané rozložení ±1σ"
           />
         </BarChart>
       </div>
@@ -269,10 +266,10 @@ function App() {
           maxWidth: "800px",
         }}
       >
-        <h2>Statistics</h2>
-        <p>Total Rolls: {rolls.length}</p>
-        <p>Dice 1 Rolls: {rolls.filter((r) => r.isFirst).length}</p>
-        <p>Dice 2 Rolls: {rolls.filter((r) => !r.isFirst).length}</p>
+        <h2>Statistika</h2>
+        <p>Celkem hodů: {rolls.length}</p>
+        <p>Kostka 1: {rolls.filter((r) => r.isFirst).length} hodů</p>
+        <p>Kostka 2: {rolls.filter((r) => !r.isFirst).length} hodů</p>
       </div>
     </div>
   );
