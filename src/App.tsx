@@ -12,8 +12,13 @@ import {
   ReferenceArea,
 } from "recharts";
 import { DiceService, RollResult } from "./services/DiceService";
+import { TranslationService } from "./services/TranslationService";
 
 function App() {
+  const [translationService] = useState(() => TranslationService.getInstance());
+  const [language, setLanguage] = useState(
+    translationService.getCurrentLanguage()
+  );
   const [rolls, setRolls] = useState<RollResult[]>([]);
   const [diceService, setDiceService] = useState(() => {
     const unfairWeights = DiceService.generateRandomWeights(6);
@@ -21,6 +26,11 @@ function App() {
   });
   const [selectedDice, setSelectedDice] = useState<number | null>(null);
   const [guessResult, setGuessResult] = useState<string | null>(null);
+
+  const handleLanguageChange = (lang: "en" | "cs") => {
+    translationService.setLanguage(lang);
+    setLanguage(lang);
+  };
 
   const handleNewDice = () => {
     const unfairWeights = DiceService.generateRandomWeights(6);
@@ -91,6 +101,32 @@ function App() {
           alignItems: "center",
         }}
       >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            width: "100%",
+            marginBottom: "20px",
+          }}
+        >
+          <select
+            value={language}
+            onChange={(e) =>
+              handleLanguageChange(e.target.value as "en" | "cs")
+            }
+            style={{
+              padding: "8px 12px",
+              borderRadius: "8px",
+              border: "1px solid #ddd",
+              backgroundColor: "white",
+              cursor: "pointer",
+            }}
+          >
+            <option value="en">English</option>
+            <option value="cs">Čeština</option>
+          </select>
+        </div>
+
         <h1
           style={{
             marginBottom: "40px",
@@ -99,7 +135,7 @@ function App() {
             textAlign: "center",
           }}
         >
-          Kostky nejsou fér!
+          {translationService.t("title")}
         </h1>
 
         <div
@@ -117,11 +153,12 @@ function App() {
           <h2
             style={{
               color: "#34495e",
+              marginTop: "0",
               marginBottom: "25px",
               fontSize: "1.8em",
             }}
           >
-            Která kostka není fér?
+            {translationService.t("whichDiceUnfair")}
           </h2>
           <div
             style={{
@@ -137,8 +174,8 @@ function App() {
                 const isCorrect = diceService.isFirstUnfair();
                 setGuessResult(
                   isCorrect
-                    ? "🎉 Správně! Našel jsi podvodnou kostku!"
-                    : "🤔 Hmm... Zkus se líp podívat na rozložení hodů"
+                    ? translationService.t("correctGuess")
+                    : translationService.t("wrongGuess")
                 );
               }}
               style={{
@@ -151,7 +188,7 @@ function App() {
                 transition: "all 0.3s ease",
               }}
             >
-              Kostka 1
+              {translationService.t("dice1")}
             </button>
             <button
               onClick={() => {
@@ -159,8 +196,8 @@ function App() {
                 const isCorrect = !diceService.isFirstUnfair();
                 setGuessResult(
                   isCorrect
-                    ? "🎉 Správně! Našel jsi podvodnou kostku!"
-                    : "🤔 Hmm... Zkus se líp podívat na rozložení hodů"
+                    ? translationService.t("correctGuess")
+                    : translationService.t("wrongGuess")
                 );
               }}
               style={{
@@ -173,7 +210,7 @@ function App() {
                 transition: "all 0.3s ease",
               }}
             >
-              Kostka 2
+              {translationService.t("dice2")}
             </button>
             {guessResult && (
               <p
@@ -191,6 +228,7 @@ function App() {
             )}
           </div>
         </div>
+
         <div
           className="button-group"
           style={{
@@ -203,22 +241,32 @@ function App() {
             maxWidth: "800px",
           }}
         >
-          <button onClick={() => handleRoll(1)}>Hodit jednou</button>
-          <button onClick={() => handleRoll(10)}>Hodit 10×</button>
-          <button onClick={() => handleRoll(100)}>Hodit 100×</button>
-          <button onClick={() => handleRoll(1000)}>Hodit 1 000×</button>
-          <button onClick={() => handleRoll(10000)}>Hodit 10 000×</button>
+          <button onClick={() => handleRoll(1)}>
+            {translationService.t("roll1")}
+          </button>
+          <button onClick={() => handleRoll(10)}>
+            {translationService.t("roll10")}
+          </button>
+          <button onClick={() => handleRoll(100)}>
+            {translationService.t("roll100")}
+          </button>
+          <button onClick={() => handleRoll(1000)}>
+            {translationService.t("roll1000")}
+          </button>
+          <button onClick={() => handleRoll(10000)}>
+            {translationService.t("roll10000")}
+          </button>
           <button
             onClick={handleNewDice}
             style={{ backgroundColor: "#2ecc71" }}
           >
-            Nové kostky
+            {translationService.t("newDice")}
           </button>
           <button
             onClick={() => setRolls([])}
             style={{ backgroundColor: "#e74c3c" }}
           >
-            Vymazat hody
+            {translationService.t("clearRolls")}
           </button>
         </div>
 
@@ -234,18 +282,32 @@ function App() {
             maxWidth: "800px",
           }}
         >
-          <h2>Rozložení hodů</h2>
+          <h2>{translationService.t("distribution")}</h2>
           <BarChart width={800} height={400} data={stats}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="face"
-              label={{ value: "Hodnota", position: "top" }}
+              label={{ value: translationService.t("value"), position: "top" }}
             />
-            <YAxis label={{ value: "Počet", angle: -90, position: "left" }} />
+            <YAxis
+              label={{
+                value: translationService.t("count"),
+                angle: -90,
+                position: "left",
+              }}
+            />
             <Tooltip />
             <Legend />
-            <Bar dataKey="firstCount" name="Kostka 1" fill="#8884d8" />
-            <Bar dataKey="secondCount" name="Kostka 2" fill="#82ca9d" />
+            <Bar
+              dataKey="firstCount"
+              name={translationService.t("dice1")}
+              fill="#8884d8"
+            />
+            <Bar
+              dataKey="secondCount"
+              name={translationService.t("dice2")}
+              fill="#82ca9d"
+            />
             <ReferenceLine
               y={stats[0]?.expectedFair}
               stroke="#8884d8"
@@ -256,7 +318,7 @@ function App() {
               y2={stats[0]?.expectedFairUpper}
               fill="#8884d8"
               fillOpacity={0.1}
-              label="Očekávané rozložení ±1σ"
+              label={translationService.t("expectedDistribution")}
             />
           </BarChart>
         </div>
@@ -272,10 +334,22 @@ function App() {
             maxWidth: "800px",
           }}
         >
-          <h2>Statistika</h2>
-          <p>Celkem hodů: {rolls.length}</p>
-          <p>Kostka 1: {rolls.filter((r) => r.isFirst).length} hodů</p>
-          <p>Kostka 2: {rolls.filter((r) => !r.isFirst).length} hodů</p>
+          <h2>{translationService.t("statistics")}</h2>
+          <p>
+            {translationService.t("totalRolls")}: {rolls.length}
+          </p>
+          <p>
+            {translationService.t(
+              "dice1Rolls",
+              rolls.filter((r) => r.isFirst).length.toString()
+            )}
+          </p>
+          <p>
+            {translationService.t(
+              "dice2Rolls",
+              rolls.filter((r) => !r.isFirst).length.toString()
+            )}
+          </p>
         </div>
       </div>
     </div>
