@@ -245,6 +245,8 @@ function App() {
                 <BarChart
                   data={stats}
                   margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                  // Scale Y axis to keep expected value at 2/3 of height
+                  maxBarSize={60}
                 >
                   <XAxis
                     dataKey="face"
@@ -259,6 +261,23 @@ function App() {
                       angle: -90,
                       position: "left",
                     }}
+                    domain={[
+                      0,
+                      (dataMax: number) => {
+                        // If we have rolls and expected value
+                        if (rolls.length > 0 && stats[0]?.expectedFair) {
+                          // Scale so expected value is at 2/3 of the chart height and round up to nice number
+                          const targetMax = Math.max(
+                            dataMax,
+                            stats[0].expectedFair * 1.5
+                          );
+                          // Round up to next multiple of 10
+                          return Math.ceil(targetMax / 10) * 10;
+                        }
+                        // Round up to next multiple of 10 even without expected value
+                        return Math.ceil(dataMax / 10) * 10;
+                      },
+                    ]}
                   />
                   <Tooltip />
                   <Legend />
@@ -272,18 +291,22 @@ function App() {
                     name={translationService.t("dice2")}
                     fill="#82ca9d"
                   />
-                  <ReferenceLine
-                    y={stats[0]?.expectedFair}
-                    stroke="#8884d8"
-                    strokeDasharray="3 3"
-                  />
-                  <ReferenceArea
-                    y1={stats[0]?.expectedFairLower}
-                    y2={stats[0]?.expectedFairUpper}
-                    fill="#8884d8"
-                    fillOpacity={0.1}
-                    label={translationService.t("expectedDistribution")}
-                  />
+                  {rolls.length > 0 && (
+                    <>
+                      <ReferenceLine
+                        y={stats[0]?.expectedFair}
+                        stroke="#8884d8"
+                        strokeDasharray="3 3"
+                      />
+                      <ReferenceArea
+                        y1={stats[0]?.expectedFairLower}
+                        y2={stats[0]?.expectedFairUpper}
+                        fill="#8884d8"
+                        fillOpacity={0.1}
+                        label={translationService.t("expectedDistribution")}
+                      />
+                    </>
+                  )}
                 </BarChart>
               </ResponsiveContainer>
             </div>

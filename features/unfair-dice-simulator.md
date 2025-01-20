@@ -21,8 +21,9 @@ The application includes a descriptive subtitle "Unfair dice simulation game" (w
 
 3. Visualization:
    - Column chart showing the distribution of rolls for both fair and unfair dice
-   - Expected count line for fair dice
-   - Standard deviation range (±1σ) for fair dice to show expected variation
+   - Expected count line and standard deviation range (±1σ) appear only after first roll
+   - Expected value is always positioned at 2/3 of the chart height for optimal visibility
+   - Chart automatically scales to maintain this proportion while accommodating actual roll counts
    - Responsive chart that adjusts to screen width
    - Two-column layout on larger screens with game controls on the left and chart on the right
 
