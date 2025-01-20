@@ -92,9 +92,14 @@ function App() {
     <div className="bg-gray-100 min-h-screen w-screen">
       <div className="p-10 mx-auto">
         <div className="flex flex-col items-center md:flex-row md:justify-between w-full mb-6">
-          <h1 className="text-gray-800 text-3xl mb-5 md:mb-0">
-            {translationService.t("title")}
-          </h1>
+          <div className="mb-5 md:mb-0">
+            <h1 className="text-gray-800 text-3xl">
+              {translationService.t("title")}
+            </h1>
+            <p className="text-gray-600 text-lg mt-1">
+              {translationService.t("subtitle")}
+            </p>
+          </div>
           <select
             value={language}
             onChange={(e) =>

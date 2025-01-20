@@ -2,6 +2,8 @@
 
 A simulator that allows comparing fair and unfair dice rolls with visualization.
 
+The application includes a descriptive subtitle "Unfair dice simulation game" (with Czech translation "Simulační hra s podvodnou kostkou") that appears below the main title.
+
 ## Features
 
 1. Interactive guessing game:
