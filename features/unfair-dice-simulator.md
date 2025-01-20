@@ -25,12 +25,14 @@ The application includes a descriptive subtitle "Unfair dice simulation game" (w
    - Expected value is always positioned at 2/3 of the chart height for optimal visibility
    - Chart automatically scales to maintain this proportion while accommodating actual roll counts
    - Responsive chart that adjusts to screen width
-   - Two-column layout on larger screens with game controls on the left and chart on the right
+   - Responsive grid layout with optimized element ordering:
+     - Mobile: Game → Roll Actions → Chart → Stats
+     - Desktop: Two-column layout with controls on left, chart on right
 
 ## Technical Implementation
 
 - Built with React + TypeScript
-- Uses Recharts for data visualization
+- Uses Recharts for data visualization with optimized margins to ensure axis labels are fully visible
 - Implements weighted random number generation for unfair dice
 - Statistical analysis including expected values and standard deviation calculations
 - Visualization of statistical bounds for fair dice distribution
