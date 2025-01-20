@@ -5,26 +5,36 @@ export interface DiceConfig {
 
 export interface RollResult {
   value: number;
-  isFair: boolean;
+  isFirst: boolean;
 }
 
 export class DiceService {
-  private fairDice: DiceConfig;
-  private unfairDice: DiceConfig;
+  private dice1: DiceConfig;
+  private dice2: DiceConfig;
+  private unfairIsFirst: boolean;
 
-  constructor(unfairWeights: number[]) {
+  static generateRandomWeights(faces: number): number[] {
+    return Array.from({ length: faces }, () => 1 + Math.random());
+  }
+
+  constructor(unfairWeights: number[], unfairIsFirst?: boolean) {
     const faces = unfairWeights.length;
-    this.fairDice = {
+    const fairConfig = {
       faces,
       weights: Array(faces).fill(1 / faces),
     };
 
     // Normalize weights to sum to 1
     const sum = unfairWeights.reduce((a, b) => a + b, 0);
-    this.unfairDice = {
+    const unfairConfig = {
       faces,
       weights: unfairWeights.map((w) => w / sum),
     };
+
+    // Randomly assign which dice is unfair if not specified
+    this.unfairIsFirst = unfairIsFirst ?? Math.random() < 0.5;
+    this.dice1 = this.unfairIsFirst ? unfairConfig : fairConfig;
+    this.dice2 = this.unfairIsFirst ? fairConfig : unfairConfig;
   }
 
   private rollWeighted(config: DiceConfig): number {
@@ -43,50 +53,36 @@ export class DiceService {
     return weights.length; // Fallback to last face
   }
 
-  rollFair(): RollResult {
+  private rollDice(isFirst: boolean): RollResult {
+    const config = isFirst ? this.dice1 : this.dice2;
     return {
-      value: this.rollWeighted(this.fairDice),
-      isFair: true,
+      value: this.rollWeighted(config),
+      isFirst,
     };
   }
 
-  rollUnfair(): RollResult {
-    return {
-      value: this.rollWeighted(this.unfairDice),
-      isFair: false,
-    };
-  }
-
-  rollMany(count: number, isFair: boolean): RollResult[] {
-    const results: RollResult[] = [];
-    const rollMethod = isFair
-      ? this.rollFair.bind(this)
-      : this.rollUnfair.bind(this);
-
-    for (let i = 0; i < count; i++) {
-      results.push(rollMethod());
-    }
-
-    return results;
+  rollMany(count: number, isFirst: boolean): RollResult[] {
+    return Array.from({ length: count }, () => this.rollDice(isFirst));
   }
 
   getExpectedProbabilities(): {
-    fair: number[];
-    unfair: number[];
+    first: number[];
+    second: number[];
     fairStdDev: number;
   } {
-    const fairProb = 1 / this.fairDice.faces;
-    // For a fair dice, standard deviation = sqrt(np(1-p))
-    // where n is number of trials and p is probability of success
+    const fairProb = 1 / this.dice1.faces;
     return {
-      fair: Array(this.fairDice.faces).fill(fairProb),
-      unfair:
-        this.unfairDice.weights || Array(this.unfairDice.faces).fill(fairProb),
+      first: this.dice1.weights || Array(this.dice1.faces).fill(fairProb),
+      second: this.dice2.weights || Array(this.dice2.faces).fill(fairProb),
       fairStdDev: Math.sqrt(fairProb * (1 - fairProb)),
     };
   }
 
   getFaces(): number {
-    return this.fairDice.faces;
+    return this.dice1.faces;
+  }
+
+  isFirstUnfair(): boolean {
+    return this.unfairIsFirst;
   }
 }

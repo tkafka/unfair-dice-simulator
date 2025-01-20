@@ -6,13 +6,15 @@ A simulator that allows comparing fair and unfair dice rolls with visualization.
 
 1. Two dice implementations:
 
-   - Fair dice (equal probability for all faces)
-   - Unfair dice (configurable weights for each face)
+   - Two dice labeled as "Dice 1" and "Dice 2"
+   - One randomly chosen to be unfair (with randomly generated weights)
+   - Can you guess which one is unfair?
 
-2. Rolling options:
+2. Interactive features:
 
-   - Accumulative rolls (add 1, 10, 100, or 1000 rolls)
-   - Reset functionality to clear all rolls
+   - Roll dice (1, 10, 100, or 1000 times)
+   - Generate new random dice with "New Random Dice" button
+   - Clear current rolls with "Clear Rolls" button
 
 3. Visualization:
    - Column chart showing the distribution of rolls for both fair and unfair dice
