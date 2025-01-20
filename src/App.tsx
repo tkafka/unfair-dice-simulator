@@ -19,11 +19,29 @@ function App() {
     const unfairWeights = DiceService.generateRandomWeights(6);
     return new DiceService(unfairWeights);
   });
+  const [selectedDice, setSelectedDice] = useState<number | null>(null);
+  const [guessResult, setGuessResult] = useState<string | null>(null);
 
   const handleNewDice = () => {
     const unfairWeights = DiceService.generateRandomWeights(6);
     setDiceService(new DiceService(unfairWeights));
     setRolls([]); // Reset rolls when new dice is created
+    setGuessResult(null); // Reset guess result
+    setSelectedDice(null); // Reset selection
+  };
+
+  const handleGuess = () => {
+    if (selectedDice === null) return;
+
+    const isCorrect =
+      (selectedDice === 1 && diceService.isFirstUnfair()) ||
+      (selectedDice === 2 && !diceService.isFirstUnfair());
+
+    setGuessResult(
+      isCorrect
+        ? "🎉 Correct! You've spotted the unfair dice!"
+        : "🤔 Not quite... try observing the distributions more carefully"
+    );
   };
 
   const handleRoll = (count: number) => {
@@ -78,7 +96,55 @@ function App() {
   return (
     <div style={{ padding: "20px", maxWidth: "1000px", margin: "0 auto" }}>
       <h1>Unfair Dice Simulator</h1>
-      <div className="button-group">
+      <div
+        className="guess-container"
+        style={{ marginBottom: "30px", textAlign: "center" }}
+      >
+        <h2>Which dice is unfair?</h2>
+        <div className="button-group">
+          <button
+            onClick={() => setSelectedDice(1)}
+            style={{
+              backgroundColor: selectedDice === 1 ? "#8884d8" : undefined,
+              color: selectedDice === 1 ? "white" : undefined,
+            }}
+          >
+            Dice 1
+          </button>
+          <button
+            onClick={() => setSelectedDice(2)}
+            style={{
+              backgroundColor: selectedDice === 2 ? "#82ca9d" : undefined,
+              color: selectedDice === 2 ? "white" : undefined,
+            }}
+          >
+            Dice 2
+          </button>
+          <button
+            onClick={handleGuess}
+            disabled={selectedDice === null}
+            style={{
+              backgroundColor: "#f39c12",
+              opacity: selectedDice === null ? 0.5 : 1,
+            }}
+          >
+            Check Guess
+          </button>
+        </div>
+        {guessResult && (
+          <p
+            style={{
+              marginTop: "20px",
+              fontSize: "1.2em",
+              color: guessResult.includes("Correct") ? "#27ae60" : "#e67e22",
+            }}
+          >
+            {guessResult}
+          </p>
+        )}
+      </div>
+
+      <div className="button-group" style={{ marginBottom: "30px" }}>
         <button onClick={() => handleRoll(1)}>Roll Once</button>
         <button onClick={() => handleRoll(10)}>Roll 10 Times</button>
         <button onClick={() => handleRoll(100)}>Roll 100 Times</button>
@@ -95,7 +161,7 @@ function App() {
         </button>
       </div>
 
-      <div className="chart-container">
+      <div className="chart-container" style={{ marginBottom: "30px" }}>
         <h2>Roll Distribution</h2>
         <BarChart width={800} height={400} data={stats}>
           <CartesianGrid strokeDasharray="3 3" />

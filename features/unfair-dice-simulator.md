@@ -4,11 +4,12 @@ A simulator that allows comparing fair and unfair dice rolls with visualization.
 
 ## Features
 
-1. Two dice implementations:
+1. Interactive guessing game:
 
    - Two dice labeled as "Dice 1" and "Dice 2"
    - One randomly chosen to be unfair (with randomly generated weights)
-   - Can you guess which one is unfair?
+   - Players can roll dice multiple times to observe distributions
+   - Make a guess and get instant feedback with emoji reactions
 
 2. Interactive features:
 
