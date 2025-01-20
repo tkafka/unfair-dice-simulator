@@ -94,7 +94,7 @@ function App() {
   }, [rolls, diceService]);
 
   return (
-    <div className="bg-gray-100 min-h-screen w-screen flex flex-col">
+    <div className="bg-gray-100 min-h-screen flex flex-col">
       <div className="p-4 sm:p-6 lg:p-8 mx-auto flex-grow w-full">
         <div className="flex flex-col items-center md:flex-row md:justify-between w-full mb-4">
           <div className="mb-4 md:mb-0">
@@ -316,7 +316,7 @@ function App() {
         </div>
       </div>
 
-      <footer className="bg-white shadow-md py-4 px-4 sm:px-6 lg:px-8 mt-auto">
+      <footer className="bg-white shadow-md py-4 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto text-center text-gray-600 flex flex-col sm:flex-row items-center justify-center gap-4">
           <div>
             {translationService.t("madeWith")}{" "}

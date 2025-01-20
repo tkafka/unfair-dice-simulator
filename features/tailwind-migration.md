@@ -1,26 +1,44 @@
-# Tailwind CSS Migration
+# Tailwind Migration
 
-## Changes Made
+The project has been migrated to use Tailwind CSS for styling. This provides:
 
-- Installed Tailwind CSS and its dependencies (tailwindcss, postcss, autoprefixer)
-- Configured Tailwind by creating `tailwind.config.js` and `postcss.config.js`
-- Simplified `index.css` to only include Tailwind directives
-- Removed `App.css` as all styles are now handled by Tailwind
-- Converted all custom CSS and inline styles in `App.tsx` to Tailwind classes
+- Utility-first CSS approach
+- Responsive design utilities
+- Easy theme customization
+- Automatic purging of unused styles in production
+- Consistent spacing and color scales
+- Flexible component styling
 
-## Style Changes
+## Layout
 
-- Converted all pixel-based measurements to Tailwind's spacing scale
-- Implemented responsive design using Tailwind's utility classes
-- Maintained the same color scheme but using Tailwind's color palette where possible
-- Added hover states for buttons using Tailwind's hover variants
-- Implemented transitions using Tailwind's transition utilities
-- Maintained custom colors for dice-specific elements using Tailwind's arbitrary value syntax (e.g., `[#8884d8]`)
+- Uses flexbox for main layout (`flex flex-col`)
+- Responsive padding with `p-4 sm:p-6 lg:p-8`
+- Grid system for content layout (`grid grid-cols-1 lg:grid-cols-[1fr,2fr]`)
+- Shadow utilities for depth (`shadow-md`)
+- Rounded corners for modern look (`rounded-2xl`)
+- Natural width layout without forced scrollbars
+- Footer at the bottom of content
 
-## Benefits
+## Colors
 
-- Reduced CSS bundle size by removing unused styles
-- Improved maintainability by using standardized utility classes
-- Better development experience with predictable styling patterns
-- Easier responsive design implementation
-- Reduced context switching between CSS files and components
+- Uses Tailwind's color palette
+- Custom colors for dice indicators (`#8884d8`, `#82ca9d`)
+- Text colors: `text-gray-600`, `text-gray-700`, `text-gray-800`
+- Background colors: `bg-gray-100`, `bg-white`
+- Interactive states with hover colors
+
+## Responsive Design
+
+- Mobile-first approach
+- Breakpoint-specific styles using `sm:`, `md:`, `lg:` prefixes
+- Responsive text sizes (`text-base lg:text-lg`)
+- Flexible layouts that adapt to screen size
+- Column layout changes at different breakpoints
+
+## Components
+
+- Cards with consistent padding and shadows
+- Interactive buttons with hover states
+- Form elements with proper styling
+- Chart container with responsive width
+- Footer with flexible layout
