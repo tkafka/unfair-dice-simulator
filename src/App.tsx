@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   BarChart,
   Bar,
@@ -25,6 +25,11 @@ function App() {
   });
   const [selectedDice, setSelectedDice] = useState<number | null>(null);
   const [guessResult, setGuessResult] = useState<string | null>(null);
+
+  // Update document title when language changes
+  useEffect(() => {
+    document.title = translationService.t("title");
+  }, [language, translationService]);
 
   const handleLanguageChange = (lang: "en" | "cs") => {
     translationService.setLanguage(lang);
