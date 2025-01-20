@@ -167,6 +167,14 @@ function App() {
                 {guessResult}
               </p>
             )}
+            <div className="mt-4">
+              <button
+                onClick={handleNewDice}
+                className="text-blue-500 hover:text-blue-600 transition-colors duration-200 text-lg"
+              >
+                {translationService.t("newDice")}
+              </button>
+            </div>
           </div>
 
           {/* Roll actions */}
@@ -200,12 +208,6 @@ function App() {
               className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-3 py-1.5 transition-colors duration-200"
             >
               {translationService.t("roll10000")}
-            </button>
-            <button
-              onClick={handleNewDice}
-              className="bg-green-500 hover:bg-green-600 text-white rounded-lg px-3 py-1.5 transition-colors duration-200"
-            >
-              {translationService.t("newDice")}
             </button>
             <button
               onClick={() => setRolls([])}
@@ -333,7 +335,7 @@ function App() {
               href="https://github.com/tkafka/unfair-dice-simulator"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-blue-500 transition-colors duration-200"
+              className="text-blue-500 hover:text-blue-500 transition-colors duration-200"
             >
               {translationService.t("sourceCode")} →
             </a>
