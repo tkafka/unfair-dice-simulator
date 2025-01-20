@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react";
-import "./App.css";
 import {
   BarChart,
   Bar,
@@ -90,84 +89,30 @@ function App() {
   }, [rolls, diceService]);
 
   return (
-    <div style={{ background: "#f8f9fa", minHeight: "100vh", width: "100vw" }}>
-      <div
-        style={{
-          padding: "40px 20px",
-          maxWidth: "1000px",
-          margin: "0 auto",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            width: "100%",
-            marginBottom: "20px",
-          }}
-        >
+    <div className="bg-gray-100 min-h-screen w-screen">
+      <div className="p-10 max-w-[1000px] mx-auto flex flex-col items-center">
+        <div className="flex justify-end w-full mb-5">
           <select
             value={language}
             onChange={(e) =>
               handleLanguageChange(e.target.value as "en" | "cs")
             }
-            style={{
-              padding: "8px 12px",
-              borderRadius: "8px",
-              border: "1px solid #ddd",
-              backgroundColor: "white",
-              cursor: "pointer",
-            }}
+            className="p-2 rounded-lg border border-gray-300 bg-white cursor-pointer"
           >
             <option value="en">English</option>
             <option value="cs">Čeština</option>
           </select>
         </div>
 
-        <h1
-          style={{
-            marginBottom: "40px",
-            color: "#2c3e50",
-            fontSize: "2.5em",
-            textAlign: "center",
-          }}
-        >
+        <h1 className="mb-10 text-gray-800 text-4xl text-center">
           {translationService.t("title")}
         </h1>
 
-        <div
-          style={{
-            background: "white",
-            padding: "30px",
-            borderRadius: "15px",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            marginBottom: "30px",
-            width: "100%",
-            maxWidth: "800px",
-            textAlign: "center",
-          }}
-        >
-          <h2
-            style={{
-              color: "#34495e",
-              marginTop: "0",
-              marginBottom: "25px",
-              fontSize: "1.8em",
-            }}
-          >
+        <div className="bg-white p-8 rounded-2xl shadow-md mb-8 w-full max-w-[800px] text-center">
+          <h2 className="text-gray-700 mt-0 mb-6 text-3xl">
             {translationService.t("whichDiceUnfair")}
           </h2>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "15px",
-            }}
-          >
+          <div className="flex items-center justify-center gap-4">
             <button
               onClick={() => {
                 setSelectedDice(1);
@@ -178,15 +123,11 @@ function App() {
                     : translationService.t("wrongGuess")
                 );
               }}
-              style={{
-                backgroundColor: selectedDice === 1 ? "#8884d8" : "white",
-                color: selectedDice === 1 ? "white" : "#8884d8",
-                border: "2px solid #8884d8",
-                padding: "10px 25px",
-                fontSize: "1.1em",
-                fontWeight: "bold",
-                transition: "all 0.3s ease",
-              }}
+              className={`px-6 py-2.5 text-lg font-bold border-2 border-[#8884d8] transition-all duration-300 ${
+                selectedDice === 1
+                  ? "bg-[#8884d8] text-white"
+                  : "bg-white text-[#8884d8]"
+              }`}
             >
               {translationService.t("dice1")}
             </button>
@@ -200,28 +141,21 @@ function App() {
                     : translationService.t("wrongGuess")
                 );
               }}
-              style={{
-                backgroundColor: selectedDice === 2 ? "#82ca9d" : "white",
-                color: selectedDice === 2 ? "white" : "#82ca9d",
-                border: "2px solid #82ca9d",
-                padding: "10px 25px",
-                fontSize: "1.1em",
-                fontWeight: "bold",
-                transition: "all 0.3s ease",
-              }}
+              className={`px-6 py-2.5 text-lg font-bold border-2 border-[#82ca9d] transition-all duration-300 ${
+                selectedDice === 2
+                  ? "bg-[#82ca9d] text-white"
+                  : "bg-white text-[#82ca9d]"
+              }`}
             >
               {translationService.t("dice2")}
             </button>
             {guessResult && (
               <p
-                style={{
-                  margin: 0,
-                  fontSize: "1.2em",
-                  color: guessResult.includes("Správně")
-                    ? "#27ae60"
-                    : "#e67e22",
-                  minWidth: "300px",
-                }}
+                className={`m-0 text-xl min-w-[300px] ${
+                  guessResult.includes("Správně")
+                    ? "text-green-500"
+                    : "text-orange-500"
+                }`}
               >
                 {guessResult}
               </p>
@@ -229,60 +163,55 @@ function App() {
           </div>
         </div>
 
-        <div
-          className="button-group"
-          style={{
-            marginBottom: "30px",
-            background: "white",
-            padding: "30px",
-            borderRadius: "15px",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            width: "100%",
-            maxWidth: "800px",
-          }}
-        >
-          <button onClick={() => handleRoll(1)}>
+        <div className="flex gap-2.5 mb-8 bg-white p-8 rounded-2xl shadow-md w-full max-w-[800px]">
+          <button
+            onClick={() => handleRoll(1)}
+            className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
+          >
             {translationService.t("roll1")}
           </button>
-          <button onClick={() => handleRoll(10)}>
+          <button
+            onClick={() => handleRoll(10)}
+            className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
+          >
             {translationService.t("roll10")}
           </button>
-          <button onClick={() => handleRoll(100)}>
+          <button
+            onClick={() => handleRoll(100)}
+            className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
+          >
             {translationService.t("roll100")}
           </button>
-          <button onClick={() => handleRoll(1000)}>
+          <button
+            onClick={() => handleRoll(1000)}
+            className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
+          >
             {translationService.t("roll1000")}
           </button>
-          <button onClick={() => handleRoll(10000)}>
+          <button
+            onClick={() => handleRoll(10000)}
+            className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
+          >
             {translationService.t("roll10000")}
           </button>
           <button
             onClick={handleNewDice}
-            style={{ backgroundColor: "#2ecc71" }}
+            className="bg-green-500 hover:bg-green-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
           >
             {translationService.t("newDice")}
           </button>
           <button
             onClick={() => setRolls([])}
-            style={{ backgroundColor: "#e74c3c" }}
+            className="bg-red-500 hover:bg-red-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
           >
             {translationService.t("clearRolls")}
           </button>
         </div>
 
-        <div
-          className="chart-container"
-          style={{
-            marginBottom: "30px",
-            background: "white",
-            padding: "30px",
-            borderRadius: "15px",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            width: "100%",
-            maxWidth: "800px",
-          }}
-        >
-          <h2>{translationService.t("distribution")}</h2>
+        <div className="bg-white p-8 rounded-2xl shadow-md mb-8 w-full max-w-[800px]">
+          <h2 className="text-gray-700 text-2xl mb-6">
+            {translationService.t("distribution")}
+          </h2>
           <BarChart width={800} height={400} data={stats}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
@@ -323,28 +252,20 @@ function App() {
           </BarChart>
         </div>
 
-        <div
-          className="stats-container"
-          style={{
-            background: "white",
-            padding: "30px",
-            borderRadius: "15px",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            width: "100%",
-            maxWidth: "800px",
-          }}
-        >
-          <h2>{translationService.t("statistics")}</h2>
-          <p>
+        <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-[800px]">
+          <h2 className="text-gray-700 text-2xl mb-6">
+            {translationService.t("statistics")}
+          </h2>
+          <p className="text-gray-600">
             {translationService.t("totalRolls")}: {rolls.length}
           </p>
-          <p>
+          <p className="text-gray-600">
             {translationService.t(
               "dice1Rolls",
               rolls.filter((r) => r.isFirst).length.toString()
             )}
           </p>
-          <p>
+          <p className="text-gray-600">
             {translationService.t(
               "dice2Rolls",
               rolls.filter((r) => !r.isFirst).length.toString()
