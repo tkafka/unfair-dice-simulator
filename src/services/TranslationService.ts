@@ -1,6 +1,8 @@
 export interface Translations {
   title: string;
   subtitle: string;
+  sourceCode: string;
+  madeWith: string;
   whichDiceUnfair: string;
   dice1: string;
   dice2: string;
@@ -26,6 +28,8 @@ export interface Translations {
 const en: Translations = {
   title: "Dice are not fair!",
   subtitle: "Unfair dice simulation game",
+  sourceCode: "Source code",
+  madeWith: "Made with",
   whichDiceUnfair: "Which dice is unfair?",
   dice1: "Dice 1",
   dice2: "Dice 2",
@@ -52,6 +56,8 @@ const en: Translations = {
 const cs: Translations = {
   title: "Kostky nejsou fér!",
   subtitle: "Simulační hra s podvodnou kostkou",
+  sourceCode: "Zdrojový kód",
+  madeWith: "Vytvořeno pomocí",
   whichDiceUnfair: "Která kostka není fér?",
   dice1: "Kostka 1",
   dice2: "Kostka 2",

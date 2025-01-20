@@ -89,8 +89,8 @@ function App() {
   }, [rolls, diceService]);
 
   return (
-    <div className="bg-gray-100 min-h-screen w-screen">
-      <div className="p-10 mx-auto">
+    <div className="bg-gray-100 min-h-screen w-screen flex flex-col">
+      <div className="p-10 mx-auto flex-grow">
         <div className="flex flex-col items-center md:flex-row md:justify-between w-full mb-6">
           <div className="mb-5 md:mb-0">
             <h1 className="text-gray-800 text-3xl">
@@ -290,6 +290,31 @@ function App() {
           </div>
         </div>
       </div>
+      <footer className="bg-white shadow-md py-4 px-10 mt-auto">
+        <div className="container mx-auto text-center text-gray-600 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div>
+            {translationService.t("madeWith")}{" "}
+            <a
+              href="https://github.com/cline/cline"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:text-blue-600 transition-colors duration-200"
+            >
+              Cline
+            </a>
+          </div>
+          <div>
+            <a
+              href="https://github.com/tkafka/unfair-dice-simulator"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-500 transition-colors duration-200"
+            >
+              {translationService.t("sourceCode")} →
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -44,3 +44,4 @@ The application includes a descriptive subtitle "Unfair dice simulation game" (w
 - Clear visual hierarchy and spacing
 - Compact header to maximize content space
 - Optimized layout for both mobile and desktop views
+- Footer with links to source code on GitHub and Cline (with translations)
