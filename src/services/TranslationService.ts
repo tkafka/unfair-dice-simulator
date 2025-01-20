@@ -31,8 +31,8 @@ const en: Translations = {
   sourceCode: "Source code",
   madeWith: "Made with",
   whichDiceUnfair: "Which dice is unfair?",
-  dice1: "Dice 1",
-  dice2: "Dice 2",
+  dice1: "Blue dice",
+  dice2: "Green dice",
   correctGuess: "🎉 Correct! You found the unfair dice!",
   wrongGuess:
     "🤔 Hmm... Try to look better at the distribution of rolls, or roll a bit more",
@@ -49,8 +49,8 @@ const en: Translations = {
   expectedDistribution: "Expected distribution ±1σ",
   statistics: "Statistics",
   totalRolls: "Total rolls",
-  dice1Rolls: "Dice 1: {0} rolls",
-  dice2Rolls: "Dice 2: {0} rolls",
+  dice1Rolls: "Blue dice: {0} rolls",
+  dice2Rolls: "Green dice: {0} rolls",
 };
 
 const cs: Translations = {
@@ -59,8 +59,8 @@ const cs: Translations = {
   sourceCode: "Zdrojový kód",
   madeWith: "Vytvořeno pomocí",
   whichDiceUnfair: "Která kostka není fér?",
-  dice1: "Kostka 1",
-  dice2: "Kostka 2",
+  dice1: "Modrá kostka",
+  dice2: "Zelená kostka",
   correctGuess: "🎉 Správně! Našel jsi podvodnou kostku!",
   wrongGuess: "🤔 Hmm... Zkus se líp podívat na rozložení hodů, nebo házej dál",
   roll1: "Hodit 1×",
@@ -76,8 +76,8 @@ const cs: Translations = {
   expectedDistribution: "Očekávané rozložení ±1σ",
   statistics: "Statistika",
   totalRolls: "Celkem hodů",
-  dice1Rolls: "Kostka 1: {0} hodů",
-  dice2Rolls: "Kostka 2: {0} hodů",
+  dice1Rolls: "Modrá kostka: {0} hodů",
+  dice2Rolls: "Zelená kostka: {0} hodů",
 };
 
 export class TranslationService {
