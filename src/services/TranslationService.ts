@@ -26,7 +26,7 @@ export interface Translations {
 }
 
 const en: Translations = {
-  title: "Dice are not fair!",
+  title: "Dices are not fair!",
   subtitle: "Unfair dice simulation game",
   sourceCode: "Source code",
   madeWith: "Made with",
