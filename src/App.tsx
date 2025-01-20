@@ -226,16 +226,10 @@ function App() {
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={stats}
-                  margin={{ top: 10, right: 30, left: 36, bottom: 0 }}
+                  margin={{ top: 8, right: 0, left: 16, bottom: 0 }}
                   maxBarSize={60}
                 >
-                  <XAxis
-                    dataKey="face"
-                    label={{
-                      value: translationService.t("value"),
-                      position: "top",
-                    }}
-                  />
+                  <XAxis dataKey="face" />
                   <YAxis
                     label={{
                       value: translationService.t("count"),
