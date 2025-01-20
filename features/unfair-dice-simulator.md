@@ -29,3 +29,11 @@ A simulator that allows comparing fair and unfair dice rolls with visualization.
 - Implements weighted random number generation for unfair dice
 - Statistical analysis including expected values and standard deviation calculations
 - Visualization of statistical bounds for fair dice distribution
+
+## Visual Design
+
+- Clean, modern interface with card-based layout
+- Consistent color scheme matching the visualization
+- Interactive buttons with visual feedback
+- Responsive containers with subtle shadows
+- Clear visual hierarchy and spacing
