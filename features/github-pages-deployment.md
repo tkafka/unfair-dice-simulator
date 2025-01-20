@@ -8,7 +8,7 @@ The following configurations have been set up to enable GitHub Pages deployment:
 
 1. **Base URL Configuration**
 
-   - The `vite.config.ts` has been configured with a base URL matching the repository name: `/unfair-dice/`
+   - The `vite.config.ts` has been configured with a base URL matching the repository name: `/unfair-dice-simulator/`
    - This ensures all assets are loaded correctly when deployed to GitHub Pages
 
 2. **Deployment Dependencies**
@@ -32,7 +32,7 @@ To deploy the application to GitHub Pages:
 3. The command will:
    - Build the project
    - Push the built files to the `gh-pages` branch
-   - Make the site available at `https://[username].github.io/unfair-dice/`
+   - Make the site available at `https://tkafka.github.io/unfair-dice-simulator/`
 
 ## First-time Setup
 
