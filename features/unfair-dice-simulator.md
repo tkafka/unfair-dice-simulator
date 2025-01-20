@@ -11,8 +11,8 @@ A simulator that allows comparing fair and unfair dice rolls with visualization.
 
 2. Rolling options:
 
-   - Single roll (1 time)
-   - Batch rolls (10, 100, 1000 times)
+   - Accumulative rolls (add 1, 10, 100, or 1000 rolls)
+   - Reset functionality to clear all rolls
 
 3. Visualization:
    - Column chart showing the distribution of rolls for both fair and unfair dice

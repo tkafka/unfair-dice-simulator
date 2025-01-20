@@ -22,7 +22,7 @@ function App() {
   const handleRoll = (count: number) => {
     const fairRolls = diceService.rollMany(count, true);
     const unfairRolls = diceService.rollMany(count, false);
-    setRolls([...fairRolls, ...unfairRolls]);
+    setRolls((prevRolls) => [...prevRolls, ...fairRolls, ...unfairRolls]);
   };
 
   const stats = useMemo(() => {
@@ -62,11 +62,16 @@ function App() {
     <div style={{ padding: "20px", maxWidth: "1000px", margin: "0 auto" }}>
       <h1>Unfair Dice Simulator</h1>
       <div className="button-group">
-        <button onClick={() => handleRoll(1)}>Roll Once</button>
-        <button onClick={() => handleRoll(10)}>Roll 10 Times</button>
-        <button onClick={() => handleRoll(100)}>Roll 100 Times</button>
-        <button onClick={() => handleRoll(1000)}>Roll 1000 Times</button>
-        <button onClick={() => handleRoll(10000)}>Roll 10000 Times</button>
+        <button onClick={() => handleRoll(1)}>Add 1 Roll</button>
+        <button onClick={() => handleRoll(10)}>Add 10 Rolls</button>
+        <button onClick={() => handleRoll(100)}>Add 100 Rolls</button>
+        <button onClick={() => handleRoll(1000)}>Add 1000 Rolls</button>
+        <button
+          onClick={() => setRolls([])}
+          style={{ backgroundColor: "#e74c3c" }}
+        >
+          Reset
+        </button>
       </div>
 
       <div className="chart-container">
